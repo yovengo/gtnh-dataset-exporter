@@ -14,7 +14,6 @@ import codechicken.nei.guihook.IContainerDrawHandler;
 import codechicken.nei.guihook.IContainerInputHandler;
 import codechicken.nei.guihook.IContainerTooltipHandler;
 
-/** A small NEI footer control that opens the same export screen as /gtnhexport. */
 public final class NEIExporterButton
     implements IContainerDrawHandler, IContainerInputHandler, IContainerTooltipHandler {
 

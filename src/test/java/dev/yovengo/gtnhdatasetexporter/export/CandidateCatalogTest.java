@@ -24,7 +24,7 @@ public class CandidateCatalogTest {
     @BeforeClass
     public static void registerTestItem() throws Exception {
         item = new Item();
-        // Register only in this isolated JVM's registry; normal Forge registration requires LaunchWrapper.
+        // Forge registration needs LaunchWrapper; register directly in this JVM.
         java.lang.reflect.Method raw = Item.itemRegistry.getClass()
             .getDeclaredMethod("addObjectRaw", int.class, String.class, Object.class);
         raw.setAccessible(true);

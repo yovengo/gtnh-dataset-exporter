@@ -152,7 +152,7 @@ public final class ExportSession {
         return 0.65 + 0.3 * rendered / Math.max(1, total);
     }
 
-    /** Invoked from RenderTickEvent.START, even when the modal pauses integrated-server ticks. */
+    /** Render ticks continue while the modal pauses integrated-server ticks. */
     public void tick(Minecraft mc) {
         if (writer.done) {
             if (!released) {

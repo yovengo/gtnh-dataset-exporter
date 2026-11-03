@@ -60,7 +60,6 @@ public final class EnvironmentSnapshot {
         return result;
     }
 
-    /** Checks the integration API versions, not the entire pack. Never labels a modified pack as verified. */
     public static String compatibilityProblem() {
         Map<String, String> expected = new TreeMap<>();
         expected.put("gregtech", "5.09.54.265");

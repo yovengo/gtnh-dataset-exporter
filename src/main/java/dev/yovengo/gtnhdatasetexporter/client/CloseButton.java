@@ -3,7 +3,6 @@ package dev.yovengo.gtnhdatasetexporter.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
-/** Compact, shadow-free close control for the export modal. */
 final class CloseButton extends GuiButton {
 
     CloseButton(int id, int x, int y) {

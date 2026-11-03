@@ -24,7 +24,6 @@ import javax.imageio.ImageIO;
 import dev.yovengo.gtnhdatasetexporter.DatasetExporter;
 import dev.yovengo.gtnhdatasetexporter.data.Json;
 
-/** Owns finalized dataset files; game objects never cross this queue. */
 public final class DatasetWriter {
 
     private static final long SHARD_BYTES = 32L * 1024 * 1024;
@@ -70,7 +69,6 @@ public final class DatasetWriter {
         worker.interrupt();
     }
 
-    /** Published by the volatile ready flag. Avoid a per-item probe round trip on a cold cache. */
     public boolean mayHaveCachedIcon(String key) {
         return ready && cachedIconKeys.contains(key);
     }
@@ -88,7 +86,7 @@ public final class DatasetWriter {
             manifest.put("inputHashes", hashes);
             manifest.put("inputHashStatus", cancelPreparation ? "partial" : "complete");
             Map<String, String> renderInputs = new java.util.TreeMap<>(hashes);
-            // Export selections do not affect pixels. Keep the config hash in the manifest, not in the icon key.
+            // Export settings do not affect rendered pixels.
             renderInputs.remove("config/gtnhdatasetexporter.cfg");
             fingerprint = Json.hash(Json.GSON.toJson(manifest.get("environment")) + Json.GSON.toJson(renderInputs));
             manifest.put("environmentFingerprint", fingerprint);
@@ -143,7 +141,7 @@ public final class DatasetWriter {
             for (Shard shard : shards.values()) {
                 try {
                     shard.abort();
-                } catch (IOException ignored) { /* Original error is retained. */ }
+                } catch (IOException ignored) {}
             }
             try {
                 manifest.put("state", "failed");
@@ -154,7 +152,6 @@ public final class DatasetWriter {
                 DatasetExporter.LOG.error("Could not record failed export", secondary);
             }
         } catch (Error fatal) {
-            // Do not recover from VM errors, but never present a terminated writer as a successful run.
             failure = "Writer terminated: " + fatal.getClass()
                 .getName();
             throw fatal;
@@ -188,7 +185,6 @@ public final class DatasetWriter {
         String status = "rendered";
         BufferedImage image = null;
         if (icon.reuse && Files.isRegularFile(cache)) {
-            // Cache entries are immutable PNG + checksum pairs. A missing/bad pair is a cache miss.
             Path checksum = cache.resolveSibling(cache.getFileName() + ".sha256");
             if (Files.isRegularFile(checksum) && Files.size(cache) < 4 * 1024 * 1024
                 && EnvironmentSnapshot.hashFile(cache)
@@ -199,7 +195,7 @@ public final class DatasetWriter {
             }
         }
         if (image == null && icon.pixels == null) {
-            // A probe is performed before rendering; return misses to the client without touching game objects.
+            // A null-pixel request probes the cache before rendering.
             icon.cacheHit = false;
             icon.checked = true;
             return;

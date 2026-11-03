@@ -24,7 +24,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import dev.yovengo.gtnhdatasetexporter.data.StackIdentity;
 
-/** Disk-backed catalog. A hash partition bounds the memory used for deduplication. */
 public final class CandidateCatalog {
 
     private static final int PARTITIONS = 128;
@@ -94,7 +93,6 @@ public final class CandidateCatalog {
         return PARTITIONS;
     }
 
-    /** Consolidates one partition per call, so the game-loop budget remains effective. */
     public boolean prepareStep() {
         if (prepared) return true;
         try {

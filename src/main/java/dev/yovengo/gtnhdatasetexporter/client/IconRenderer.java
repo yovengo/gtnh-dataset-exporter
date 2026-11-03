@@ -13,7 +13,6 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 
-/** Called only on the client render thread. PNG encoding is owned by DatasetWriter. */
 public final class IconRenderer {
 
     private final RenderItem renderer = new RenderItem();

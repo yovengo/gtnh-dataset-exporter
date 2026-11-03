@@ -90,7 +90,7 @@ public final class ExportController {
     public void onRenderTick(TickEvent.RenderTickEvent event) {
         if (event.phase != TickEvent.Phase.START) return;
         Minecraft mc = Minecraft.getMinecraft();
-        // GuiChat closes after processing a command; opening here avoids it immediately closing our screen.
+        // Open after GuiChat processes the command, or it closes the modal.
         if (openRequested) {
             openRequested = false;
             mc.displayGuiScreen(new ExportScreen(this));

@@ -14,7 +14,7 @@ public final class AspectResolver {
 
     private AspectResolver() {}
 
-    /** Same call sequence as TC 4.2.3.5 TileAlchemyFurnace; runtime patches apply to these calls. */
+    /** Match TileAlchemyFurnace's tag calls so runtime patches apply. */
     public static Map<String, Object> resolve(String id, ItemStack original) {
         ItemStack stack = original.copy();
         stack.stackSize = 1;

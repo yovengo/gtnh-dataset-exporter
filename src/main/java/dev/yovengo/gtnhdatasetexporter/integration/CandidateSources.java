@@ -34,7 +34,7 @@ public final class CandidateSources {
 
         String name();
 
-        /** One bounded unit; false means the source has been exhausted. */
+        /** Returns false when the source is exhausted. */
         boolean step(ExportContext context) throws Exception;
     }
 
@@ -128,7 +128,6 @@ public final class CandidateSources {
                             .func_151398_b(output),
                         ctx);
                 }));
-        // Lazy flattening: do not materialize the complete recipe graph in memory.
         tasks.add(
             scan(
                 "gregtech_recipes",
@@ -269,7 +268,7 @@ public final class CandidateSources {
             item = (Item) items.next();
             List<CreativeTabs> attempts = new ArrayList<>();
             if (item.getCreativeTabs() != null) attempts.addAll(Arrays.asList(item.getCreativeTabs()));
-            // Some mod items reject null; only use it when no real creative tab is advertised.
+            // Some mod items reject a null creative tab.
             if (attempts.isEmpty()) attempts.add(null);
             tabs = attempts.iterator();
             return true;
@@ -316,7 +315,7 @@ public final class CandidateSources {
         } else throw new IllegalArgumentException("Unknown Thaumcraft metadata rule");
     }
 
-    /** Public GT API accessed reflectively to avoid loading its unrelated optional item-interface dependencies. */
+    /** Reflection avoids loading optional GT item interfaces. */
     private static final class GregTechVariants implements Task {
 
         private Iterator<?> items;

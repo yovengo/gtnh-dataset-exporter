@@ -13,7 +13,6 @@ import dev.yovengo.gtnhdatasetexporter.DatasetExporter;
 import dev.yovengo.gtnhdatasetexporter.export.ExportOptions;
 import dev.yovengo.gtnhdatasetexporter.export.ExportSession;
 
-/** A centered, resolution-independent modal. No textures or external UI libraries required. */
 public final class ExportScreen extends GuiScreen {
 
     private static final int PANEL_WIDTH = 430;

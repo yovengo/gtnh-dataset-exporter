@@ -23,7 +23,6 @@ import thaumcraft.api.crafting.InfusionRecipe;
 import thaumcraft.api.crafting.ShapedArcaneRecipe;
 import thaumcraft.api.crafting.ShapelessArcaneRecipe;
 
-/** Preserves observed ingredients. Partial semantics are explicit and must not be treated as exact costs. */
 public final class RecipeCollector {
 
     private RecipeCollector() {}
@@ -62,7 +61,6 @@ public final class RecipeCollector {
         if (recipe instanceof IRecipe) output = ((IRecipe) recipe).getRecipeOutput();
         row.put("inputs", ingredient(inputs, ctx));
         row.put("output", ctx.stack(output, "exact"));
-        // Container items and custom result logic need separate evaluation. Do not claim full crafting semantics.
         row.put("semantics", "partial");
         row.put("knownIngredientLayout", exactClass);
         row.put("limitations", "Container returns and dynamic crafting results are not evaluated");

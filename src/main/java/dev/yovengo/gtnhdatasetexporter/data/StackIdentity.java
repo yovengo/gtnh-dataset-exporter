@@ -18,7 +18,6 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import com.google.gson.JsonElement;
 
-/** Exact observed stack identity; never performs ore unification or drops NBT fields. */
 public final class StackIdentity {
 
     public final String id;
@@ -41,7 +40,6 @@ public final class StackIdentity {
         id = registryName + "@" + metadata + (nbt == null ? "" : "#" + Json.hash(encoded));
     }
 
-    /** Restores the identity recorded at discovery, independent of ItemStack NBT read hooks. */
     public static StackIdentity fromSnapshot(String id, String registryName, int metadata, String encodedNbt) {
         return new StackIdentity(id, registryName, metadata, encodedNbt);
     }
@@ -102,7 +100,7 @@ public final class StackIdentity {
             value = ((NBTTagString) tag).func_150285_a_();
             if (((String) value).length() > 65536) throw new IllegalArgumentException("NBT string too large");
         } else {
-            // Typed numeric literals retain long precision, signed zero and non-finite float values.
+            // Preserve long precision, signed zero, and non-finite floats.
             value = tag.toString();
         }
         return Json.object("type", tag.getId(), "value", value);

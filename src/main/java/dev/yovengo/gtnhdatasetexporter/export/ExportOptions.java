@@ -4,7 +4,6 @@ import java.util.Map;
 
 import dev.yovengo.gtnhdatasetexporter.data.Json;
 
-/** Immutable snapshot: changing the next run's controls cannot affect a running export. */
 public final class ExportOptions {
 
     public final boolean aspects;
